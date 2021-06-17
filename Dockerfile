@@ -17,7 +17,7 @@ RUN dotnet restore jenuine-api/jenuine-api.csproj
 RUN dotnet publish jenuine-api/jenuine-api.csproj -c release -o /app --no-restore -p:PackageVersion=${version}
 
 ##### final stage/image
-FROM mcr.microsoft.com/dotnet/runtime:5.0
+FROM mcr.microsoft.com/dotnet/aspnet:5.0
 
 RUN apt-get -y update
 RUN apt-get -y install curl
