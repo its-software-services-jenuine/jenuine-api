@@ -6,7 +6,7 @@ on:
     tags: ['v*.*.*']
 
 env:
-  ENV_GCR_IMAGE: gcr.io/jenuine-dev/jenuine-api
+  ENV_GCR_IMAGE: gcr.io/its-artifact-commons/jenuine-api
   DEPLOY_PROJECT_ID: ${{ secrets.DEV_CLOUDRUN_PROJECT_ID }}
   RUN_REGION: asia-southeast1
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -81,8 +81,8 @@ jobs:
     - name: Activate GCP service account
       uses: google-github-actions/github-actions/setup-gcloud@master
       with:
-        service_account_email: ${{ secrets.DEV_GCP_EMAIL }}
-        service_account_key: ${{ secrets.DEV_GCP_KEY }}
+        service_account_email: ${{ secrets.GCR_EMAIL }}
+        service_account_key: ${{ secrets.GCR_KEY }}
 
     - name: GCR Authen
       run: |
