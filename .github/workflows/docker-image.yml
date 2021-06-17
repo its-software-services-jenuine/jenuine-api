@@ -7,7 +7,6 @@ on:
 
 env:
   ENV_GCR_IMAGE: gcr.io/its-artifact-commons/jenuine-api
-  DEPLOY_PROJECT_ID: ${{ secrets.DEV_CLOUDRUN_PROJECT_ID }}
   RUN_REGION: asia-southeast1
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -29,12 +28,24 @@ jobs:
         GCR_IMAGE=$ENV_GCR_IMAGE
         VERSION=latest
         GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
+        SERVICE_NAME=jenuine-api-dev
+        CLOUDRUN_PROJECT_ID=jenuine-dev
+        CLOUDRUN_SA_EMAIL=${{ secrets.DEV_CLOUDRUN_SA_EMAIL }}
+        CLOUDRUN_SA_KEY=${{ secrets.DEV_CLOUDRUN_SA_KEY }}
 
         if [[ $GITHUB_REF == refs/tags/* ]]; then
           VERSION=${GITHUB_REF#refs/tags/}
+          SERVICE_NAME=jenuine-api-prod
+          CLOUDRUN_PROJECT_ID=jenuine-prod
+          CLOUDRUN_SA_EMAIL=${{ secrets.PROD_CLOUDRUN_SA_EMAIL }}
+          CLOUDRUN_SA_KEY=${{ secrets.PROD_CLOUDRUN_SA_KEY }}          
         elif [[ $GITHUB_REF == refs/heads/* ]]; then
           BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
           VERSION=$BRANCH-$GIT_HASH
+
+          if [[ $BRANCH == 'main' ]]; then
+            SERVICE_NAME=jenuine-api-test
+          fi          
         fi
 
         TAGS="${DOCKER_IMAGE}:${VERSION}"
@@ -51,6 +62,11 @@ jobs:
         echo ::set-output name=tags::${TAGS}
         echo ::set-output name=gcr_tags::${GCR_TAGS}
         echo ::set-output name=version::${VERSION}
+        echo ::set-output name=cloudrun_service::${SERVICE_NAME}
+        echo ::set-output name=cloud_run_project_id::${CLOUDRUN_PROJECT_ID}
+        echo ::set-output name=cloud_run_sa_email::${CLOUDRUN_SA_EMAIL}
+        echo ::set-output name=cloud_run_sa_key::${CLOUDRUN_SA_KEY}
+
 
     - name: Line notification start
       uses: snow-actions/line-notify@v1.0.0
@@ -98,6 +114,26 @@ jobs:
         load: false
         tags: ${{ steps.prep.outputs.gcr_tags }}
         build-args: version=${{ steps.prep.outputs.version }}
+
+    # Activate SA for Cloud Run deployment
+    - name: Activate GCP service account
+      uses: google-github-actions/github-actions/setup-gcloud@master
+      with:
+        service_account_email: ${{ steps.prep.outputs.cloud_run_sa_email }}
+        service_account_key: ${{ steps.prep.outputs.cloud_run_sa_key }}
+
+    # Configure gcloud CLI
+    - name: gcloud Set up
+      run: |
+          gcloud config set project ${{ steps.prep.outputs.cloud_run_project_id }}
+
+    # Deploy image to Cloud Run
+    - name: Deploy
+      run: |
+          gcloud run deploy ${{ steps.prep.outputs.cloudrun_service }} \
+            --region $RUN_REGION \
+            --image ${{ steps.prep.outputs.gcr_tags }} \
+            --platform managed
 
     - name: show job status
       if: always()
