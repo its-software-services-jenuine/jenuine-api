@@ -27,4 +27,6 @@ COPY --from=build /app .
 COPY run.bash /app
 RUN ls -lrt
 
+EXPOSE 8080
+
 ENTRYPOINT ["./run.bash"]
