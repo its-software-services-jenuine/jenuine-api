@@ -6,8 +6,8 @@ on:
     tags: ['v*.*.*']
 
 env:
-  ENV_GCR_IMAGE: gcr.io/its-artifact-commons/jenuine-api
-  DEPLOY_PROJECT_ID: ${{ secrets.CLOUDRUN_PROJECT_ID }}
+  ENV_GCR_IMAGE: gcr.io/jenuine-dev/jenuine-api
+  DEPLOY_PROJECT_ID: ${{ secrets.DEV_CLOUDRUN_PROJECT_ID }}
   RUN_REGION: asia-southeast1
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -62,11 +62,11 @@ jobs:
       uses: highbyte/sonarscan-dotnet@2.0
       with:
         # The key of the SonarQube project
-        sonarProjectKey: its-software-services-devops_jenuine-api
+        sonarProjectKey: its-software-services-jenuine_jenuine-api
         # The name of the SonarQube project
         sonarProjectName:  jenuine-api
         # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
-        sonarOrganization: its-software-services-devops
+        sonarOrganization: its-software-services-jenuine
         # Optional command arguments to dotnet test
         dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
         # Optional extra command arguments the the SonarScanner 'begin' command
@@ -81,8 +81,8 @@ jobs:
     - name: Activate GCP service account
       uses: google-github-actions/github-actions/setup-gcloud@master
       with:
-        service_account_email: ${{ secrets.GCR_EMAIL }}
-        service_account_key: ${{ secrets.GCR_KEY }}
+        service_account_email: ${{ secrets.DEV_GCP_EMAIL }}
+        service_account_key: ${{ secrets.DEV_GCP_KEY }}
 
     - name: GCR Authen
       run: |
