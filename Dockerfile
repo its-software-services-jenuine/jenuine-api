@@ -24,6 +24,7 @@ RUN apt-get -y install curl
 
 WORKDIR /app
 COPY --from=build /app .
+COPY run.bash /app
 RUN ls -lrt
 
-ENTRYPOINT ["dotnet", "jenuine-api.dll"]
+ENTRYPOINT ["./run.bash"]
