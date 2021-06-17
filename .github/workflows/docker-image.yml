@@ -30,15 +30,11 @@ jobs:
         GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
         SERVICE_NAME=jenuine-api-dev
         CLOUDRUN_PROJECT_ID=jenuine-dev
-        CLOUDRUN_SA_EMAIL=${{ secrets.DEV_CLOUDRUN_SA_EMAIL }}
-        CLOUDRUN_SA_KEY=$(echo ${{ secrets.DEV_CLOUDRUN_SA_KEY }} | base64 )
 
         if [[ $GITHUB_REF == refs/tags/* ]]; then
           VERSION=${GITHUB_REF#refs/tags/}
           SERVICE_NAME=jenuine-api-prod
           CLOUDRUN_PROJECT_ID=jenuine-prod
-          CLOUDRUN_SA_EMAIL=${{ secrets.PROD_CLOUDRUN_SA_EMAIL }}
-          CLOUDRUN_SA_KEY=$(echo ${{ secrets.PROD_CLOUDRUN_SA_KEY }} | base64 )          
         elif [[ $GITHUB_REF == refs/heads/* ]]; then
           BRANCH=$(echo ${GITHUB_REF#refs/heads/} | sed -r 's#/+#-#g')
           VERSION=$BRANCH-$GIT_HASH
@@ -64,8 +60,6 @@ jobs:
         echo ::set-output name=version::${VERSION}
         echo ::set-output name=cloudrun_service::${SERVICE_NAME}
         echo ::set-output name=cloud_run_project_id::${CLOUDRUN_PROJECT_ID}
-        echo ::set-output name=cloud_run_sa_email::${CLOUDRUN_SA_EMAIL}
-        echo ::set-output name=cloud_run_sa_key::${CLOUDRUN_SA_KEY}
 
     - name: Line notification start
       uses: snow-actions/line-notify@v1.0.0
@@ -118,8 +112,8 @@ jobs:
     - name: Activate GCP service account
       uses: google-github-actions/github-actions/setup-gcloud@master
       with:
-        service_account_email: ${{ steps.prep.outputs.cloud_run_sa_email }}
-        service_account_key: ${{ steps.prep.outputs.cloud_run_sa_key }}
+        service_account_email: ${{ secrets.DEV_CLOUDRUN_SA_EMAIL }}
+        service_account_key: ${{ secrets.DEV_CLOUDRUN_SA_KEY }}
 
     # Configure gcloud CLI
     - name: gcloud Set up
