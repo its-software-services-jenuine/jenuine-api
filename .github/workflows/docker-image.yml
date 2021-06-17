@@ -58,19 +58,19 @@ jobs:
         access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
         message: "Start building [jenuine-api] [${{ steps.prep.outputs.version }}]..."
 
-    - name: SonarScanner for .NET 5 with pull request decoration support
-      uses: highbyte/sonarscan-dotnet@2.0
-      with:
-        # The key of the SonarQube project
-        sonarProjectKey: its-software-services-jenuine_jenuine-api
-        # The name of the SonarQube project
-        sonarProjectName:  jenuine-api
-        # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
-        sonarOrganization: its-software-services-jenuine
-        # Optional command arguments to dotnet test
-        dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-        # Optional extra command arguments the the SonarScanner 'begin' command
-        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
+#    - name: SonarScanner for .NET 5 with pull request decoration support
+#      uses: highbyte/sonarscan-dotnet@2.0
+#      with:
+#        # The key of the SonarQube project
+#        sonarProjectKey: its-software-services-jenuine_jenuine-api
+#        # The name of the SonarQube project
+#        sonarProjectName:  jenuine-api
+#        # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
+#        sonarOrganization: its-software-services-jenuine
+#        # Optional command arguments to dotnet test
+#        dotnetTestArguments: --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+#        # Optional extra command arguments the the SonarScanner 'begin' command
+#        sonarBeginArguments: /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" -d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
                 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
