@@ -16,10 +16,6 @@ COPY jenuine-api.sln .
 RUN dotnet restore jenuine-api/jenuine-api.csproj
 RUN dotnet publish jenuine-api/jenuine-api.csproj -c release -o /app --no-restore -p:PackageVersion=${version}
 
-COPY resources/ /app/resources
-
-RUN ls -lrt /app /app/resources
-
 ##### final stage/image
 FROM mcr.microsoft.com/dotnet/runtime:5.0
 
