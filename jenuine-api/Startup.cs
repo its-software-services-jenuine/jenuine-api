@@ -1,18 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Serilog;
+using MongoDB.Driver;
+using Its.Jenuiue.Api.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace jenuine_api
+
+namespace Its.Jenuiue.Api
 {
     public class Startup
     {
@@ -26,6 +23,13 @@ namespace jenuine_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connStr = Configuration["DbSetting:ConnectionString"];
+            Log.Information("Using connection string [{0}]", connStr);
+
+            var conn = new MongoClient(connStr);
+            
+            services.AddSingleton<IMongoClient>(sp => conn);
+            services.AddSingleton<IDatabase>(sp => new MongoDatabase(conn));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

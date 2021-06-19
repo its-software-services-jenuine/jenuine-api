@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Its.Jenuiue.Api.Models;
 
-namespace jenuine_api.Controllers
+namespace Its.Jenuiue.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

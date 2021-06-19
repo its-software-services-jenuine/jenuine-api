@@ -1,6 +1,6 @@
 using System;
 
-namespace jenuine_api
+namespace Its.Jenuiue.Api.Models
 {
     public class WeatherForecast
     {

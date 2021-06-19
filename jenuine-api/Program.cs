@@ -1,18 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Serilog;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace jenuine_api
+namespace Its.Jenuiue.Api
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            var log = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateLogger();
+            Log.Logger = log;
+
             CreateHostBuilder(args).Build().Run();
         }
 
