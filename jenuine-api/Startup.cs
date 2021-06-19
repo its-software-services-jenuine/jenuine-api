@@ -24,7 +24,7 @@ namespace Its.Jenuiue.Api
         public void ConfigureServices(IServiceCollection services)
         {
             var connStr = Configuration["DbSetting:ConnectionString"];
-            Log.Information("Using connection string [{0}]", connStr);
+            Log.Information("Configuring services...");
 
             var conn = new MongoClient(connStr);
             
