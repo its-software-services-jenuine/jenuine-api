@@ -4,3 +4,4 @@
 coveragereport/*
 samples/wip/*
 secrets.txt
+export.bash
