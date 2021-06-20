@@ -5,5 +5,7 @@ namespace Its.Jenuiue.Api.Models.Organization
         public string PinNo { get; set; }
         public string SerialNo { get; set; }
         public string ProductId { get; set; }
+        public bool IsRegistered { get; set; }
+        public MRegistration RegisteredInfo { get; set; }
     }
 }
