@@ -15,11 +15,11 @@ namespace Its.Jenuiue.Api.Models
         
         public DateTime CreatedDtm { get; set; }
 
-        public Label[] Labels { get; set; }
+        public List<Label> Labels { get; set; }
 
         public BaseModel()
         {
-            Labels = Array.Empty<Label>();
+            Labels = new List<Label>();
         }
     }
 }

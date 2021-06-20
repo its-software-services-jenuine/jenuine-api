@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Its.Jenuiue.Api.Models.Organization
 {
@@ -6,6 +7,6 @@ namespace Its.Jenuiue.Api.Models.Organization
     {
         public DateTime RegisteredDate { get; set; }
         public string IP { get; set; }
-        public string[] Headers { get; set; }
+        public List<string> Headers { get; set; }
     }
 }
