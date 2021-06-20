@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -13,5 +14,12 @@ namespace Its.Jenuiue.Api.Models
         public DateTime ModifiedDtm { get; set; }
         
         public DateTime CreatedDtm { get; set; }
+
+        public Label[] Labels { get; set; }
+
+        public BaseModel()
+        {
+            Labels = Array.Empty<Label>();
+        }
     }
 }

@@ -15,9 +15,9 @@ namespace Its.Jenuiue.Api.Database
             globalDb = conn.GetDatabase(GLOBAL_DB_NAME);
         }
 
-        public IMongoDatabase GetCustomerDb(string custId)
+        public IMongoDatabase GetOrganizeDb(string orgId)
         {
-            var db = conn.GetDatabase(custId);
+            var db = conn.GetDatabase(orgId);
             return db;
         }
 
