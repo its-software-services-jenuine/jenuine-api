@@ -1,13 +1,13 @@
 using Serilog;
 using MongoDB.Driver;
 using Its.Jenuiue.Api.Database;
+using Its.Jenuiue.Api.Actions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-
 
 namespace Its.Jenuiue.Api
 {
@@ -30,6 +30,7 @@ namespace Its.Jenuiue.Api
             
             services.AddSingleton<IMongoClient>(sp => conn);
             services.AddSingleton<IDatabase>(sp => new MongoDatabase(conn));
+            services.AddScoped<IFactoryActions>(sp => new FactoryActions());
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
