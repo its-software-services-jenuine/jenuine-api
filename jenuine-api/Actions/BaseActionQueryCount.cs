@@ -1,11 +1,9 @@
 using MongoDB.Driver;
-using System.Collections.Generic;
 using Its.Jenuiue.Api.Database;
-using Its.Jenuiue.Api.ModelsViews;
 
 namespace Its.Jenuiue.Api.Actions
 {
-    public abstract class BaseActionQuery : IActionQuery
+    public abstract class BaseActionQueryCount : IActionQueryCount
     {
         private IDatabase dbConn;
         private IMongoDatabase db;
@@ -29,7 +27,7 @@ namespace Its.Jenuiue.Api.Actions
             db = conn.GetOrganizeDb(orgId);
         }
 
-        public List<T> Apply<T>(T param, BaseModelView queryParam)
+        public long Apply<T>(T param)
         {
             bool isGlobalDb = UseGlobalDb();
             string collName = GetCollectionName();
@@ -45,9 +43,9 @@ namespace Its.Jenuiue.Api.Actions
             }
 
             var filter = GetFilter<T>(param);
-            var results = collection.Find(filter).ToList();
+            var results = collection.Find(filter);
 
-            return results;
+            return results.CountDocuments();
         }
     }
 }
