@@ -10,6 +10,7 @@ namespace Its.Jenuiue.Api.Actions.Products
         {
             Init(conn, orgId);
         }
+        
         protected override string GetCollectionName()
         {
             return "products";

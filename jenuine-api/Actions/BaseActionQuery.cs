@@ -29,7 +29,7 @@ namespace Its.Jenuiue.Api.Actions
             db = conn.GetOrganizeDb(orgId);
         }
 
-        public List<T> Apply<T>(T param, BaseModelView queryParam)
+        public List<T> Apply<T>(T param, QueryParam queryParam)
         {
             bool isGlobalDb = UseGlobalDb();
             string collName = GetCollectionName();

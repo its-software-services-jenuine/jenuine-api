@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using Its.Jenuiue.Api.Database;
+using Its.Jenuiue.Api.Models.Organization;
 
 namespace Its.Jenuiue.Api.Actions.Products
 {

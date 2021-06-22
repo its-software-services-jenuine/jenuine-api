@@ -5,7 +5,6 @@ namespace Its.Jenuiue.Api.ModelsViews
 {
     public class BaseModelView
     {
-        public int Offset { get; set; }
-        public int Limit { get; set; }
+        public QueryParam QueryParam { get; set; }
     }
 }
