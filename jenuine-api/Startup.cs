@@ -31,7 +31,11 @@ namespace Its.Jenuiue.Api
             
             services.AddScoped<IProductsService>(sp => new ProductsService(db));
 
-            services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "jenuine_api", Version = "v1" });
