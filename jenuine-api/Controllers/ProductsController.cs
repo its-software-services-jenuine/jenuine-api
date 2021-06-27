@@ -24,7 +24,7 @@ namespace Its.Jenuiue.Api.Controllers
 
         [HttpGet]
         [Route("org/{id}/action/GetProducts")]
-        public IEnumerable<MVProduct> Get(string id) //[FromBody] MVProduct data
+        public IEnumerable<MVProduct> GetProducts(string id) //[FromBody] MVProduct data
         {
             service.SetOrgId(id);
             var products = service.GetProducts(null, new QueryParam());
@@ -32,5 +32,57 @@ namespace Its.Jenuiue.Api.Controllers
             var result = mapper.Map<IEnumerable<MProduct>, IEnumerable<MVProduct>>(products);
             return result;
         }
+
+        [HttpGet]
+        [Route("org/{id}/action/GetProductsCount")]
+        public IActionResult GetProductsCount(string id)
+        {
+            service.SetOrgId(id);
+            long cnt = service.GetProductsCount();
+
+            return Ok(new MVCountResult(cnt));
+        }
+
+        [HttpGet]
+        [Route("org/{id}/action/GetProductById/{objectId}")]
+        public IActionResult GetProductById(string id, string objectId)
+        {
+            MProduct m = new MProduct();
+            m.Id = objectId;
+
+            service.SetOrgId(id);
+            var product = service.GetProductById(m);
+            var result = mapper.Map<MProduct, MVProduct>(product);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("org/{id}/action/AddProduct")]
+        public IActionResult AddProduct(string id, [FromBody] MVProduct data)
+        {
+            service.SetOrgId(id);
+            var product = mapper.Map<MVProduct, MProduct>(data);
+
+            var addedProduct = service.AddProduct(product);
+            var result = mapper.Map<MProduct, MVProduct>(addedProduct);
+
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route("org/{id}/action/DeleteProductById/{objectId}")]
+        public IActionResult DeleteProductById(string id, string objectId)
+        {
+            MProduct m = new MProduct();
+            m.Id = objectId;
+
+            service.SetOrgId(id);
+            var deletedObj = service.DeleteProduct(m);
+
+            var result = mapper.Map<MProduct, MVProduct>(deletedObj);
+
+            return Ok(result);
+        }        
     }
 }

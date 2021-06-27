@@ -9,6 +9,7 @@ namespace Its.Jenuiue.Api.Mapping
         public MappingProfile()
         {
             CreateMap<MProduct, MVProduct>();
+            CreateMap<MVProduct, MProduct>();
         }
     }
 }

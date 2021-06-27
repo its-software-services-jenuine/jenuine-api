@@ -41,7 +41,7 @@ namespace Its.Jenuiue.Api.Services.Products
         {
             var m = new MProduct();
 
-            var act = new GetProductCountAction(database, orgId);            
+            var act = new GetProductCountAction(database, orgId);
             var cnt = act.Apply<MProduct>(m);
 
             return cnt;
@@ -49,7 +49,10 @@ namespace Its.Jenuiue.Api.Services.Products
 
         public MProduct AddProduct(MProduct param)
         {
-            return null;
+            var act = new AddProductAction(database, orgId);
+            var result = act.Apply<MProduct>(param);
+
+            return result;
         }
 
         public MProduct UpdateProduct(MProduct param)
@@ -57,8 +60,12 @@ namespace Its.Jenuiue.Api.Services.Products
             return null;
         }
 
-        public void DeleteProduct(MProduct param)
+        public MProduct DeleteProduct(MProduct param)
         {
+            var act = new DeleteProductByIdAction(database, orgId);
+            var result = act.Apply<MProduct>(param.Id);
+
+            return result;
         }
     }
 }

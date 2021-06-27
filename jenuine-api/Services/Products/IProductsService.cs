@@ -12,6 +12,6 @@ namespace Its.Jenuiue.Api.Services.Products
         public long GetProductsCount();
         public MProduct AddProduct(MProduct param);
         public MProduct UpdateProduct(MProduct param);
-        public void DeleteProduct(MProduct param);
+        public MProduct DeleteProduct(MProduct param);
     }
 }
