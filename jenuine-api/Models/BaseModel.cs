@@ -19,7 +19,7 @@ namespace Its.Jenuiue.Api.Models
 
         public BaseModel()
         {
-            Labels = new List<Label>();
+            Labels = new List<Label>();            
         }
     }
 }

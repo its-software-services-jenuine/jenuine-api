@@ -12,6 +12,6 @@ namespace Its.Jenuiue.Api.Actions.Products
         protected override string GetCollectionName()
         {
             return "products";
-        }                     
+        }
     }
 }

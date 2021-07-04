@@ -3,4 +3,4 @@
 curl --header "Content-Type: application/json" \
 --request DELETE \
 -k -v \
-https://localhost:5001/api/products/org/org-id-axssdd/action/DeleteProductById/60d883a9d827ec777d1462b6/
+https://localhost:5001/api/products/org/org-id-axssdd/action/DeleteProductById/60e147d33d5a5e81ba177d08/

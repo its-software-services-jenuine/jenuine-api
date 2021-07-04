@@ -83,6 +83,21 @@ namespace Its.Jenuiue.Api.Controllers
             var result = mapper.Map<MProduct, MVProduct>(deletedObj);
 
             return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("org/{id}/action/UpdateProductById/{objectId}")]
+        public IActionResult UpdateProductById(string id, string objectId, [FromBody] MVProduct data)
+        {
+            service.SetOrgId(id);
+            var product = mapper.Map<MVProduct, MProduct>(data);
+            product.Id = objectId;
+
+            var updateObj = service.UpdateProduct(product);
+
+            var result = mapper.Map<MProduct, MVProduct>(updateObj);
+
+            return Ok(result);
         }        
     }
 }

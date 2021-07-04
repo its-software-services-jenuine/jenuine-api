@@ -1,5 +1,6 @@
 using System;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace Its.Jenuiue.Api.Database
 {
@@ -26,5 +27,11 @@ namespace Its.Jenuiue.Api.Database
             var coll = globalDb.GetCollection<T>(name);
             return coll;
         }
+
+        public IMongoCollection<BsonDocument> GetBsonCollectionGlobal<T>(string name)
+        {
+            var coll = globalDb.GetCollection<BsonDocument>(name);
+            return coll;
+        }        
     }
 }

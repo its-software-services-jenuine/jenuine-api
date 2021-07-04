@@ -57,7 +57,10 @@ namespace Its.Jenuiue.Api.Services.Products
 
         public MProduct UpdateProduct(MProduct param)
         {
-            return null;
+            var act = new UpdateProductByIdAction(database, orgId);
+            var result = act.Apply<MProduct>(param);
+
+            return result;
         }
 
         public MProduct DeleteProduct(MProduct param)

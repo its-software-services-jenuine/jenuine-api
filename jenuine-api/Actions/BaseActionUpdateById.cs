@@ -1,17 +1,19 @@
 using System;
+using System.Collections.Generic;
 using MongoDB.Driver;
 using MongoDB.Bson;
-using Its.Jenuiue.Api.Models;
 using Its.Jenuiue.Api.Database;
+using Its.Jenuiue.Api.Models;
 
 namespace Its.Jenuiue.Api.Actions
 {
-    public abstract class BaseActionAdd : IActionManipulate
+    public abstract class BaseActionUpdateById : IActionManipulate
     {
         private IDatabase dbConn;
         private IMongoDatabase db;
 
         protected abstract string GetCollectionName();
+        protected abstract List<string> GetUpdateFields();
 
         protected virtual bool UseGlobalDb()
         {
@@ -26,9 +28,8 @@ namespace Its.Jenuiue.Api.Actions
 
         public T Apply<T>(T param)
         {
-            (param as BaseModel).CreatedDtm = DateTime.UtcNow;
-            (param as BaseModel).ModifiedDtm = DateTime.UtcNow;
-            (param as BaseModel).Id = ObjectId.GenerateNewId().ToString();
+            string objectId = (param as BaseModel).Id;
+            var updateFields = GetUpdateFields();
 
             bool isGlobalDb = UseGlobalDb();
             string collName = GetCollectionName();
@@ -43,7 +44,20 @@ namespace Its.Jenuiue.Api.Actions
                 collection = db.GetCollection<T>(collName);
             }
 
-            collection.InsertOne(param);
+            var filter = Builders<T>.Filter.Eq("Id", new ObjectId(objectId));
+
+            var update = Builders<T>.Update;
+            var updateDef = update.Set("ModifiedDtm", DateTime.UtcNow);
+
+            foreach (string field in updateFields)
+            {
+                //Support only one level field now
+                var value = param.GetType().GetProperty(field).GetValue(param, null);
+                updateDef = updateDef.Set(field, value);
+            }
+
+            var result = collection.UpdateOne(filter, updateDef);
+
             return param;
         }
     }
