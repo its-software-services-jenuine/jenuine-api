@@ -24,16 +24,13 @@ namespace Its.Jenuiue.Api.Actions
             db = conn.GetOrganizeDb(orgId);
         }
 
-        public T Apply<T>(T param)
+        protected IMongoCollection<T> GetCollection<T>()        
         {
-            (param as BaseModel).CreatedDtm = DateTime.UtcNow;
-            (param as BaseModel).ModifiedDtm = DateTime.UtcNow;
-            (param as BaseModel).Id = ObjectId.GenerateNewId().ToString();
-
             bool isGlobalDb = UseGlobalDb();
             string collName = GetCollectionName();
 
             IMongoCollection<T> collection;
+
             if (isGlobalDb)
             {
                 collection = dbConn.GetCollectionGlobal<T>(collName);
@@ -42,6 +39,17 @@ namespace Its.Jenuiue.Api.Actions
             {
                 collection = db.GetCollection<T>(collName);
             }
+
+            return collection;
+        }
+
+        public T Apply<T>(T param)
+        {
+            (param as BaseModel).CreatedDtm = DateTime.UtcNow;
+            (param as BaseModel).ModifiedDtm = DateTime.UtcNow;
+            (param as BaseModel).Id = ObjectId.GenerateNewId().ToString();
+
+            IMongoCollection<T> collection = GetCollection<T>();
 
             collection.InsertOne(param);
             return param;
