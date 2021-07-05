@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Its.Jenuiue.Api.Services.Products;
 using Its.Jenuiue.Api.ModelsViews;
 using Its.Jenuiue.Api.ModelsViews.Organization;
-using Its.Jenuiue.Api.Models.Organization;
+using Its.Jenuiue.Core.Models;
+using Its.Jenuiue.Core.Models.Organization;
+using Its.Jenuiue.Core.Services.Products;
 using AutoMapper;
 
 namespace Its.Jenuiue.Api.Controllers

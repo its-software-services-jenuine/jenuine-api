@@ -1,13 +1,13 @@
 using Serilog;
 using MongoDB.Driver;
-using Its.Jenuiue.Api.Database;
+using Its.Jenuiue.Core.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Its.Jenuiue.Api.Services.Products;
+using Its.Jenuiue.Core.Services.Products;
 
 namespace Its.Jenuiue.Api
 {

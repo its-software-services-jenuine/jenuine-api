@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using Its.Jenuiue.Core.Models;
 
 namespace Its.Jenuiue.Api.ModelsViews
 {

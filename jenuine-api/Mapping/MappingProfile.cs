@@ -1,5 +1,5 @@
 using AutoMapper;
-using Its.Jenuiue.Api.Models.Organization;
+using Its.Jenuiue.Core.Models.Organization;
 using Its.Jenuiue.Api.ModelsViews.Organization;
 
 namespace Its.Jenuiue.Api.Mapping
