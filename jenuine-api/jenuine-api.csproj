@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="JenuineCore" Version="0.0.2" />
+    <PackageReference Include="JenuineCore" Version="0.0.0-develop-b382be7" />
     <PackageReference Include="MongoDB.Driver" Version="2.12.4" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
