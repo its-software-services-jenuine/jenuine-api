@@ -110,7 +110,7 @@ jobs:
 
     # Activate SA for Cloud Run deployment
     - name: Activate GCP service account
-      uses: google-github-actions/github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0.2.1
       with:
         service_account_email: ${{ secrets.DEV_CLOUDRUN_SA_EMAIL }}
         service_account_key: ${{ secrets.DEV_CLOUDRUN_SA_KEY }}
