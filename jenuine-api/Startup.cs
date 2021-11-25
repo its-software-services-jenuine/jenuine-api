@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Its.Jenuiue.Core.Services.Products;
+using Its.Jenuiue.Core.Services.Assets;
 
 namespace Its.Jenuiue.Api
 {
@@ -30,6 +31,8 @@ namespace Its.Jenuiue.Api
             var db = new MongoDatabase(conn);
             
             services.AddScoped<IProductsService>(sp => new ProductsService(db));
+            services.AddScoped<IAssetsService>(sp => new AssetsService(db));
+            
 
             services.AddAutoMapper(typeof(Startup));
 
