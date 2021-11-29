@@ -67,6 +67,8 @@ namespace Its.Jenuiue.Api.Controllers
 
             var addedAsset = service.AddAsset(asset);
             var result = mapper.Map<MAsset, MVAsset>(addedAsset);
+            
+            //var assetid = data;
 
             return Ok(result);
         }
