@@ -1,5 +1,9 @@
 curl -v -k https://localhost:5001/api/products/org/console-test/action/GetProducts
+<<<<<<< HEAD
 
+=======
+curl -k https://localhost:5001/api/products/org/console-test/action/GetProducts
+>>>>>>> 25fb1688ba5862acbdad6b7a13f5fc0abcf34060
 curl -v -k https://localhost:5001/api/products/org/console-test/action/GetProductById/60fff72c6f026b194e8ba59b
 
 curl -v -k -X DELETE https://localhost:5001/api/products/org/console-test/action/DeleteProductById/60fff72c6f026b194e8ba59b
