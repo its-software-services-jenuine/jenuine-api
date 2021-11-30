@@ -15,9 +15,9 @@ namespace Its.Jenuiue.Api.ModelsViews.Organization
         [Required]
         public string SerialNo { get; set; }
         [Required]
-        public bool IsRegistered { get; set; }
+        public string IsRegistered { get; set; }
         [Required]
-        public MRegistration RegisteredInfo { get; set; }
+        public string RegisteredInfo { get; set; }
 
         [StringLength(200)]
         public string Description { get; set; }
