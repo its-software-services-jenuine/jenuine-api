@@ -30,15 +30,17 @@ namespace Its.Jenuiue.Api
             var conn = new MongoClient(connStr);
             var db = new MongoDatabase(conn);
             
+            
             services.AddScoped<IProductsService>(sp => new ProductsService(db));
             services.AddScoped<IAssetsService>(sp => new AssetsService(db));
             
 
             services.AddAutoMapper(typeof(Startup));
+            
 
             services.AddControllers()
                 .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
-
+                
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "jenuine_api", Version = "v1" });
