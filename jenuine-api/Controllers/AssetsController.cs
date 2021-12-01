@@ -95,7 +95,7 @@ namespace Its.Jenuiue.Api.Controllers
             service.SetOrgId(id);
             var asset = mapper.Map<MVAsset, MAsset>(data);
             asset.Id = objectId;
-
+            
             var updateObj = service.UpdateAsset(asset);
 
             var result = mapper.Map<MAsset, MVAsset>(updateObj);

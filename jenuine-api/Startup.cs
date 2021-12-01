@@ -34,6 +34,7 @@ namespace Its.Jenuiue.Api
             services.AddScoped<IProductsService>(sp => new ProductsService(db));
             services.AddScoped<IAssetsService>(sp => new AssetsService(db));
             
+            
 
             services.AddAutoMapper(typeof(Startup));
             
