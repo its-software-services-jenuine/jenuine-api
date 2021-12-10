@@ -101,7 +101,7 @@ namespace Its.Jenuiue.Api.Controllers
             var result = mapper.Map<MAsset, MVAsset>(updateObj);
 
             return Ok(result);
-        }      
+        }    
 
         [HttpPut]
         [Route("org/{id}/action/UpdateAssetRegisterFlagById/{objectId}")]
@@ -109,7 +109,7 @@ namespace Its.Jenuiue.Api.Controllers
         {
             service.SetOrgId(id);
             var asset = mapper.Map<MVAsset, MAsset>(data);
-            asset.Id = objectId;
+            //asset.Id = objectId;
 
             var updateObj = service.UpdateAssetRegisterFlag(asset);
 
