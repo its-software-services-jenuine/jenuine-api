@@ -1,5 +1,6 @@
 #!/bin/bash
 # Info : https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-code-coverage?tabs=windows
+# dotnet tool install --global dotnet-reportgenerator-globaltool --version 5.0.0
 
 COVERAGE_PATH=jenuine-api-test/TestResults
 
